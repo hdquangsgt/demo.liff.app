@@ -127,7 +127,8 @@
       inputImg.addEventListener('click', (event) => {
         console.log('change', document.getElementById('uploadReview'), document.getElementById('reviewImage'));
         reviewImg.innerHTML = '';
-        const files = event.target.files;
+        const files = document.getElementById('uploadReview').files;
+        console.log(files);
         for (let index = 0; index < files.length; index++) {
           const file = files[index];
 
@@ -151,13 +152,10 @@
           liff.login();
         }
       });
-      liff
-        .init({ liffId: "2005113568-1Qom9rmL" })
-        .then(async () => {
-          await uploadImage();
-        });
+      await liff.init({ liffId: "2005113568-1Qom9rmL" });
     }
     main();
+    uploadImage();
   </script>
 </body>
 
