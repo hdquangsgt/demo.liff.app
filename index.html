@@ -51,12 +51,12 @@
 
     <script src="https://static.line-scdn.net/liff/edge/versions/2.4.1/sdk.js"></script>
     <script>
-      const inputImgs = document.getElementById('upload-review');
+      const inputImg = document.getElementById('upload-review');
       const reviewImgs = document.getElementById('review');
 
-      inputImgs.onchange((event) => {
+      inputImg.addEventListener('change', (event) => {
         reviewImgs.innerHTML = '';
-        const files = inputImgs.files;
+        const files = event.files;
         for (let index = 0; index < files.length; index++) {
           const file = files[index];
 
