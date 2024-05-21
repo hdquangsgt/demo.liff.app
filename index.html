@@ -9,10 +9,11 @@
 </head>
 
 <body>
-  <input id="uploadReview" type="file" accept="image/*" name="images[]" multiple />
-  <div id="reviewImage"></div>
+  <input type="file" accept="image/*" capture="environment" onchange="handleImageUpload(event)" />
+  <img id="previewImage" src="#" alt="Preview Image" style="display: none; max-width: 100%; max-height: 200px;">
+
   <br />
-  <input type="file" accept="image/*" name="images-gallery[]" capture multiple />
+  <input type="file" accept="image/*" name="images-gallery[]" capture onchange="uploadImage()" />
 
   <p id="os"><b>OS:</b> </p>
   <p id="language"><b>Language:</b> </p>
@@ -119,25 +120,41 @@
       }
     }
 
-    async function uploadImage() {
-      const inputImg = document.getElementById('uploadReview');
-      console.log(inputImg);
-      const reviewImg = document.getElementById('reviewImage');
+    function handleImageUpload(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
 
-      inputImg.addEventListener('click', (event) => {
-        console.log('change', document.getElementById('uploadReview'), document.getElementById('reviewImage'));
-        reviewImg.innerHTML = '';
-        const files = document.getElementById('uploadReview').files;
-        console.log(files);
-        for (let index = 0; index < files.length; index++) {
-          const file = files[index];
+      reader.onload = function(e) {
+        const previewImage = document.getElementById('previewImage');
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+      };
 
-          const img = document.createElement('img');
-          img.src = window.URL.createObjectURL(file);
+      reader.readAsDataURL(file);
+    }
 
-          reviewImg.appendChild(img);
-        }
-      });
+    function uploadImage() {
+      liff.getProfile()
+        .then((profile) => {
+          console.log('Display Name:', profile.displayName);
+
+          // Upload the image
+          liff.sendMessages([{
+            type: 'image',
+            originalContentUrl: 'https://example.com/image.jpg',
+            previewImageUrl: 'https://example.com/image_preview.jpg'
+          }])
+          .then(() => {
+            console.log('Image uploaded successfully');
+            liff.closeWindow(); // Close the LIFF app
+          })
+          .catch((error) => {
+            console.error('Error uploading image:', error);
+          });
+        })
+        .catch((error) => {
+          console.error('Error getting profile:', error);
+        });
     }
 
     async function main() {
