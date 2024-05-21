@@ -125,7 +125,7 @@
       const reviewImg = document.getElementById('reviewImage');
 
       inputImg.addEventListener('click', (event) => {
-        console.log('change');
+        console.log('change', event, inputImg);
         reviewImg.innerHTML = '';
         const files = event.target.files;
         for (let index = 0; index < files.length; index++) {
@@ -154,7 +154,7 @@
       liff
         .init({ liffId: "2005113568-1Qom9rmL" })
         .then(async () => {
-          await uploadImage()
+          await uploadImage();
         });
     }
     main();
