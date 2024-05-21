@@ -45,29 +45,11 @@
   <script>
     var vConsole = new VConsole()
     console.log("Hello World!")
-    const inputImg = document.getElementById('upload-review');
-    console.log(inputImg);
-    const reviewImgs = document.getElementById('review');
-
-    inputImg.addEventListener('change', (event) => {
-      console.log('change');
-      reviewImgs.innerHTML = '';
-      const files = event.target.files;
-      for (let index = 0; index < files.length; index++) {
-        const file = files[index];
-
-        const img = document.createElement('img');
-        img.src = window.URL.createObjectURL(file);
-
-        reviewImgs.appendChild(img);
-      }
-    });
-
   </script>
 
   <script src="https://static.line-scdn.net/liff/edge/versions/2.4.1/sdk.js"></script>
   <script>
-    
+
     function createUniversalLink() {
       const link1 = liff.permanenLink.createUrl();
       document.getElementById("universalLink1").append(link1);
@@ -137,6 +119,26 @@
       }
     }
 
+    function uploadImage() {
+      const inputImg = document.getElementById('upload-review');
+      console.log(inputImg);
+      const reviewImgs = document.getElementById('review');
+
+      inputImg.addEventListener('change', (event) => {
+        console.log('change');
+        reviewImgs.innerHTML = '';
+        const files = event.target.files;
+        for (let index = 0; index < files.length; index++) {
+          const file = files[index];
+
+          const img = document.createElement('img');
+          img.src = window.URL.createObjectURL(file);
+
+          reviewImgs.appendChild(img);
+        }
+      });
+    }
+
     async function main() {
       liff.ready.then(() => {
         document.getElementById("isLoggedIn").append(liff.isLoggedIn());
@@ -149,7 +151,11 @@
           liff.login();
         }
       });
-      await liff.init({ liffId: "2005113568-1Qom9rmL" });
+      liff
+        .init({ liffId: "2005113568-1Qom9rmL" })
+        .then(() => {
+          uploadImage()
+        });
     }
     main();
   </script>
