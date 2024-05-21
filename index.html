@@ -9,8 +9,8 @@
 </head>
 
 <body>
-  <input id="upload-review" type="file" accept="image/*" name="images[]" multiple />
-  <div id="review"></div>
+  <input id="uploadReview" type="file" accept="image/*" name="images[]" multiple />
+  <div id="reviewImage"></div>
   <br />
   <input type="file" accept="image/*" name="images-gallery[]" capture multiple />
 
@@ -119,14 +119,14 @@
       }
     }
 
-    function uploadImage() {
-      const inputImg = document.getElementById('upload-review');
+    async function uploadImage() {
+      const inputImg = document.getElementById('uploadReview');
       console.log(inputImg);
-      const reviewImgs = document.getElementById('review');
+      const reviewImg = document.getElementById('reviewImage');
 
-      inputImg.addEventListener('change', (event) => {
+      inputImg.addEventListener('click', (event) => {
         console.log('change');
-        reviewImgs.innerHTML = '';
+        reviewImg.innerHTML = '';
         const files = event.target.files;
         for (let index = 0; index < files.length; index++) {
           const file = files[index];
@@ -134,7 +134,7 @@
           const img = document.createElement('img');
           img.src = window.URL.createObjectURL(file);
 
-          reviewImgs.appendChild(img);
+          reviewImg.appendChild(img);
         }
       });
     }
@@ -153,8 +153,8 @@
       });
       liff
         .init({ liffId: "2005113568-1Qom9rmL" })
-        .then(() => {
-          uploadImage()
+        .then(async () => {
+          await uploadImage()
         });
     }
     main();
