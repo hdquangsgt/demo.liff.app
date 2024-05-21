@@ -12,7 +12,7 @@
   <input id="upload-review" type="file" accept="image/*" name="images[]" multiple />
   <div id="review"></div>
   <br />
-  <input type="file" accept="image/*" name="images-gallery[]" capture="user" multiple />
+  <input type="file" accept="image/*" name="images-gallery[]" capture multiple />
 
   <p id="os"><b>OS:</b> </p>
   <p id="language"><b>Language:</b> </p>
@@ -46,6 +46,7 @@
     var vConsole = new VConsole()
     console.log("Hello World!")
     const inputImg = document.getElementById('upload-review');
+    console.log(inputImg);
     const reviewImgs = document.getElementById('review');
 
     inputImg.addEventListener('change', (event) => {
