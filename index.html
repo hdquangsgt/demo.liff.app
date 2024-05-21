@@ -47,14 +47,14 @@
     console.log("Hello World!")
   </script>
 
-  <script src="https://static.line-scdn.net/liff/edge/versions/2.4.1/sdk.js"></script>
+  <!-- <script src="https://static.line-scdn.net/liff/edge/versions/2.4.1/sdk.js"></script> -->
   <script>
     const inputImg = document.getElementById('upload-review');
     const reviewImgs = document.getElementById('review');
 
     inputImg.addEventListener('change', (event) => {
       reviewImgs.innerHTML = '';
-      const files = event.files;
+      const files = event.target.files;
       for (let index = 0; index < files.length; index++) {
         const file = files[index];
 
